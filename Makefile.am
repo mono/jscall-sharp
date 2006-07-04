@@ -1,29 +1,7 @@
-SUBDIRS = jscallglue
+SUBDIRS = src
+EXTRA_DIST = jscall-sharp.pc.in
 
-ASSEMBLY_NAME = jscall
-ASSEMBLY = $(top_builddir)/build/lib/$(ASSEMBLY_NAME).dll
-TARGET = $(ASSEMBLY)
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = jscall-sharp.pc
 
-jscalldir=$(pkglibdir)
-jscall_SCRIPTS = $(ASSEMBLY)
-jscall_DATA = $(ASSEMBLY).mdb
-
-JSCALL_CSFILES =							\
-	$(srcdir)/AssemblyInfo.cs					\
-	$(srcdir)/AspNetEdit.JSCall/CommandManager.cs			\
-	$(srcdir)/AspNetEdit.JSCall/InvalidJSArgumentException.cs
-
-JSCALL_REFERENCES = 		\
-	$(GTKSHARP_LIBS)	\
-	$(GECKOSHARP_LIBS)
-
-
-$(ASSEMBLY): $(JSCALL_CSFILES)
-	$(MCS) $(MCS_OPTIONS) $(JSCALL_REFERENCES) -debug -target:library -out:$@ $(JSCALL_CSFILES)
-
-$(ASSEMBLY).mdb: $(ASSEMBLY)
-
-all: $(ASSEMBLY)
-
-EXTRA_DIST = $(JSCALL_CSFILES) $(srcdir)/README $(srcdir)/Resources/JSCall.js 
-CLEANFILES = $(ASSEMBLY) $(ASSEMBLY).mdb
+DISTCLEANFILES = config.guess config.sub Makefile.in configure install-sh missing aclocal.m4

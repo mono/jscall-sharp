@@ -1,0 +1,28 @@
+Prerequisites
+=============
+You will need:
+	Mono 1.1.9
+	Gtk# 2.4
+	Gecko# 0.10
+	GCC 3.3
+	Gtk+ 2.4 + developer headers
+	Mozilla 1.6 + developer headers
+
+
+Building JSCall
+===============
+Open a terminal in the root aspnetedit directory and run 
+	./autoconf.sh --prefix=PREFIX
+This will automatically run the configure script as well, but you may access 
+additional options by running 
+	./configure --help
+The library can the be built with the command
+	make
+
+
+Installing JSCall
+=================
+To install JSCall into the PREFIX directory you specified during 
+configuration, simply run
+	make install
+The libraries and scripts will be installed into PREFIX/lib/jscall-sharp.

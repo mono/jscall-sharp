@@ -1,25 +1,79 @@
-INTRODUCTION
+Introduction
 ============
-This is the AspNetEdit.JSGlue layer for calling C# functions from JavaScript in a Gecko# control, and vice versa. It should work with any .NET language but I've referrred to C# for simplicity. I don't expect many people to use this, so the documentation is little more than minimal; please contact me <m.j.hutchinson@gmail.com> if you need help working out how it works.
+JSCall is a simple JavaScript bridge for Gecko#. It's an interim solution 
+until someone writes a proper XPCOM bridge for Mono, and uses unmanaged code 
+and P/Invoke to invoke Gecko's XPCOM components from managed code. It should 
+work with any .NET language, but I've referred to C# for simplicity. I don't 
+expect many people to use this, so the documentation is little more than 
+minimal; please contact me <m.j.hutchinson@gmail.com> if you need help 
+working out how it works.
 
-BUILDING
-========
-Use automake (./autogen.sh --prefix=/usr/local) at the application level.
 
-USAGE
+Installation
+============
+For installation instruction please read the INSTALL file.
+
+
+Architecture
+============
+There are currently two communication mechanisms:
+
+Message-passing:
+Requires loading JSCall.js in the document. Functions can 
+be registered on the JS side and then called from the C# side, and vice 
+versa. Return values are handle asynchonously as callbacks.
+CLR -> Gecko calls are made by injecting children into a 'jscall' node in the 
+DOM, while Gecko -> CLR calls are made via document's window title.
+
+JS evaluation:
+Scripts can be passed into the browser from managed code, and executed in the 
+page context. This can also be used to load JSCall.js and other scripts when 
+setting up the message-passing scheme in pages that cannot be modified 
+directly, e.g. internet sites
+
+
+Usage
 =====
-On the CLR side of things, create an instance of AspNetEdit.JSGlue.CommandManager by passing the constructor the Gecko# control. This object has the following methods:
+On the CLR side of things, create an instance of 
+AspNetEdit.JSGlue.CommandManager by passing the Gecko# control to its 
+constructor. This object has the following methods:
+
 	RegisterJSHandler(string name, ClrCall handler)
-		Register a ClrCall delegate as the handler when JS calls the named 'name' function.
+		Register a ClrCall delegate as the handler when JS calls the named 
+		'name' function.
 	UnregisterJSHandler(string name)
 		Unregister the 'name' function.
 	JSCall(string function, string returnTo, string[] args)
-		Call the 'function' JS function, with 'returnTo' as the callback for any return value. Arguments as a string array.
+		Call the 'function' JS function, with 'returnTo' as the callback for 
+		any return value. Arguments as a string array.
+	
+	JSEval (string script)
+		Executes the JS that is passed in. Does not require JSGlue.js, so can 
+		be used to load it.
 
-On the JS side, load the JSGlue.js file into your document and call JSGlueInit(). You then have the following functions available, mirroring the C# functions but a bit more "javascripty".
+On the JS side, load the JSGlue.js file into your document and call 
+JSGlueInit(). You then have the following functions available, mirroring the 
+C# functions but a bit more "javascripty".
+
 	JSGluePlaceClrCall(fn, returnTo, args)
 		Call the 'fn' C# function, with 'returnTo' as the callback for any return value. Arguments as a string array.
 	JSGlueRegisterClrHandler(n, fn)
 		Register a the 'fn' function as the handler when C# calls the named 'n' function.
 	JSGlueUnregisterClrHandler()
 		Unregister the 'name' function.
+
+
+Developers
+==========
+A list of contributors can be found in the AUTHORS file. If you are
+interested  in contributing to JSCall, please contact Michael Hutchinson 
+<m.j.hutchinson@gmail.com>. I am prepared to accept any generally useful 
+Gecko#-interfacing code.
+
+
+Release Notes
+=============
+Alpha 0.0.2:
+	Split from AspNetEdit ASP.NET graphical designer. See 
+	http://svn.myrealbox.com/viewcvs/trunk/aspeditor/src/jscall/ for previous 
+	release information.

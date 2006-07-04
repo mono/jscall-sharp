@@ -1,0 +1,17 @@
+<Combine name="jscall" fileversion="2.0">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry build="True" name="jscall" configuration="Debug" />
+    </Configuration>
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry build="True" name="jscall" configuration="Debug" />
+    </Configuration>
+  </Configurations>
+  <DeployTargets />
+  <StartMode startupentry="jscall" single="True">
+    <Execute type="None" entry="jscall" />
+  </StartMode>
+  <Entries>
+    <Entry filename="./jscall.mdp" />
+  </Entries>
+</Combine>
