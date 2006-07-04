@@ -1,0 +1,4 @@
+2006-07-04  Michael Hutchinson <m.j.hutchinson@gmail.com>
+
+	* jscall-sharp.pc.in: Fix dll names, and add a way to locate glue 
+	library and JS script.
