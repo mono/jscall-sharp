@@ -1,5 +1,5 @@
 //
-// AssemblyInfo.cs.in for jscall.dll in aspnetedit
+// AssemblyInfo.cs.in for jscall.dll
 //
 // Authors:
 //	Michael Hutchinson <m.j.hutchinson@gmail.com>
@@ -7,15 +7,17 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle ("AspNetEdit JSCall")]
-[assembly: AssemblyDescription ("JSCall library for AspNetEdit Graphical ASP.NET Editor ")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AspNetEdit")]
-[assembly: AssemblyCopyright ("Copyright © 2005  Michael Hutchinson")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTitle ("JSCall")]
+[assembly: AssemblyDescription ("JSCall library for .NET/JS interop with Gecko#")]
+//[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("JSCall")]
+[assembly: AssemblyCopyright ("Copyright © 2005-2006  Michael Hutchinson")]
+//[assembly: AssemblyTrademark("")]
 
-[assembly: AssemblyCulture("")]
-[assembly: AssemblyConfiguration("")]
+//[assembly: AssemblyCulture("")]
+//[assembly: AssemblyConfiguration("")]
 
 [assembly: AssemblyVersion("@VERSION@")]
 [assembly: AssemblyFileVersion("@VERSION@")]
+
+[assembly: AssemblyKeyFile ("jscall.key")]

@@ -2,7 +2,7 @@ prefix=@prefix@
 exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
-Libraries=@libdir@/jscall-sharp/jscall.dll @libdir@/jscall-sharp/libjscallglue.dll.so
+Libraries=@libdir@/jscall-sharp/jscall.dll
 Script=@libdir@/jscall-sharp/JSCall.js
 MozillaHome=@MOZILLA_HOME@
 

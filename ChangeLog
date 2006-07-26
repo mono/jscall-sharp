@@ -1,3 +1,17 @@
+2006-07-26  Michael Hutchinson <m.j.hutchinson@gmail.com>
+
+	* configure.ac:
+	* src/Makefile.am:
+	* src/jscallglue/Makefile.am:
+	* jscall-sharp.pc.in:
+	  Use libtool to install the glue library properly.
+	  Install the assembly to the GAC.
+	
+	* src/jscall.dll.config.in: Use versioned name for glue library.
+	
+	* src/AssemblyInfo.cs.in:
+	* jscall.key: Set key for strong name so we can install to the GAC. 
+
 2006-07-14  Michael Hutchinson <m.j.hutchinson@gmail.com>
 
 	* jscall-sharp.pc.in: Add MozillaHome variable, so that consumers can 

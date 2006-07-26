@@ -1,8 +1,9 @@
 AC_INIT(README)
 AC_CANONICAL_SYSTEM
-AM_INIT_AUTOMAKE(jscall-sharp, 0.0.2.0)
+AM_INIT_AUTOMAKE(jscall-sharp, 0.0.2)
 AM_MAINTAINER_MODE
 
+AM_PROG_LIBTOOL
 AC_PROG_INSTALL
 AC_PROG_CXX
 
@@ -15,7 +16,6 @@ GECKOSHARP_REQUIRED_VERSION=0.10
 m4_define(gtk_required_version,               2.6.0)
 m4_define(mozilla_required_version,           1.6)
 m4_define(firefox_required_version,           1.0)
-
 
 ### Check for pkg-config
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
@@ -51,6 +51,15 @@ AC_SUBST(MCS)
 
 MCS_OPTIONS="-d:TRACE"
 AC_SUBST(MCS_OPTIONS)
+
+### The GAC tool
+
+AC_PATH_PROG(GACUTIL, gacutil, no)
+if test "x$GACUTIL" = "xno" ; then
+        AC_MSG_ERROR([No gacutil tool found])
+fi
+
+AC_SUBST(GACUTIL)
 
 
 ### Check c# dependencies
@@ -96,7 +105,9 @@ AC_OUTPUT([
 Makefile
 jscall-sharp.pc
 src/Makefile
+src/jscallglue/Makefile
 src/AssemblyInfo.cs
+src/jscall.dll.config
 ])
 
 echo ""
