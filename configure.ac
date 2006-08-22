@@ -16,7 +16,7 @@ GECKOSHARP_REQUIRED_VERSION=0.10
 m4_define(gtk_required_version,               2.6.0)
 m4_define(mozilla_required_version,           1.6)
 m4_define(firefox_required_version,           1.0)
-
+m4_define(xulrunner_required_version,         1.8)
 ### Check for pkg-config
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
 if test "x$PKG_CONFIG" = "xno"; then
@@ -83,7 +83,12 @@ if test $mozpackage = any ; then
 	        AC_MSG_RESULT([Firefox detected])
 	        mozpackage=firefox
 	    else
-	        AC_MSG_ERROR([Neither Firefox nor Mozilla development packages were detected])
+		if $PKG_CONFIG --exists xulrunner-gtkmozembed; then
+		  AC_MSG_RESULT([XulRunner detected])
+		  mozpackage=xulrunner
+		else
+	          AC_MSG_ERROR([Neither Firefox nor Mozilla development packages were detected])
+	        fi
 	    fi
 	fi
 fi
@@ -91,6 +96,7 @@ fi
 case $mozpackage in
      firefox) mozpackage_required_version=firefox_required_version ;;
      mozilla) mozpackage_required_version=mozilla_required_version ;;
+     xulrunner) mozpackage_required_version=xulrunner_required_version ;;
      *) AC_MSG_ERROR([--with-gtkmozembed argument must be either 'mozilla' or 'firefox'])
 esac
 
