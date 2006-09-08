@@ -1,3 +1,9 @@
+2006-09-07  Chris Howie <cdhowie@nerdshack.com> 
+
+	* Resources/JSCall.js: 	  Restore the old document title after 
+	  placing outbound method calls. Prevents duplicated call when 
+	  navigating back to page on Gecko 1.8+.
+
 2006-06-24  Michael Hutchinson <m.j.hutchinson@gmail.com>
 
 	* jscallglue/jscallglue.cpp: Fix build on Gecko 1.8+ browsers. Not a

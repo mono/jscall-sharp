@@ -94,8 +94,10 @@ function JSCallPlaceClrCall(fn, returnTo, args) {
 	{
 		str += args.join(delimiter);
 	}
-	document.title= str;
 	
+	var oldTitle = document.title;
+	document.title = str;
+	document.title = oldTitle;	
 }
 
 
