@@ -14,7 +14,7 @@ ASSEMBLY_CSFILES = \
 	AssemblyInfo.cs \
 	AspNetEdit.JSCall/CommandManager.cs \
 	AspNetEdit.JSCall/InvalidJSArgumentException.cs
-	
+
 ASSEMBLY_REFERENCES = \
 	$(GTKSHARP_LIBS) \
 	$(GECKOSHARP_LIBS)
@@ -53,9 +53,9 @@ CLEANFILES = $(ASSEMBLY) $(ASSEMBLY).mdb $(GLUELIB) $(SNK)
 ### GAC install rules ###
 
 install-data-local:
-	echo "$(GACUTIL) /i $(ASSEMBLY)";  \
-        $(GACUTIL) /i $(ASSEMBLY) || exit 1;
+	echo "$(GACUTIL) /i $(ASSEMBLY) $(GACUTIL_FLAGS)";  \
+        $(GACUTIL) /i $(ASSEMBLY) $(GACUTIL_FLAGS) || exit 1;
 
 uninstall-local:
-	echo "$(GACUTIL) /u $(ASSEMBLY_NAME)"; \
-        $(GACUTIL) /u $(ASSEMBLY_NAME) || exit 1;
+	echo "$(GACUTIL) /u $(ASSEMBLY_NAME) $(GACUTIL_FLAGS)"; \
+        $(GACUTIL) /u $(ASSEMBLY_NAME) $(GACUTIL_FLAGS) || exit 1;

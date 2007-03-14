@@ -1,3 +1,13 @@
+2007-03-13  C.J. Adams-Collier <cjcollier@colliertech.org>
+	Overview: Installing assemblies into gacutil of $prefix rather
+	than /usr
+	
+	* configure.ac:
+	  setting up some gacutil flags
+	* src/Makefile.am
+	- using these gacutil flags in the calls to gacutil
+	- removed excess whitespace
+
 2006-07-26  Michael Hutchinson <m.j.hutchinson@gmail.com>
 
 	* configure.ac:

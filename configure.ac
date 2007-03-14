@@ -61,6 +61,8 @@ fi
 
 AC_SUBST(GACUTIL)
 
+GACUTIL_FLAGS='/gacdir $(DESTDIR)$(prefix)'
+AC_SUBST(GACUTIL_FLAGS)
 
 ### Check c# dependencies
 
