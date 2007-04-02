@@ -11,9 +11,9 @@ SNK=$(ASSEMBLY_NAME).key
 ### Source files and refs ###
 
 ASSEMBLY_CSFILES = \
-	AssemblyInfo.cs \
-	AspNetEdit.JSCall/CommandManager.cs \
-	AspNetEdit.JSCall/InvalidJSArgumentException.cs
+	$(srcdir)/AssemblyInfo.cs \
+	$(srcdir)/AspNetEdit.JSCall/CommandManager.cs \
+	$(srcdir)/AspNetEdit.JSCall/InvalidJSArgumentException.cs
 
 ASSEMBLY_REFERENCES = \
 	$(GTKSHARP_LIBS) \

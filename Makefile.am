@@ -1,5 +1,5 @@
 SUBDIRS = src
-EXTRA_DIST = jscall-sharp.pc.in
+EXTRA_DIST = jscall-sharp.pc.in jscall.key
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = jscall-sharp.pc

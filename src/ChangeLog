@@ -1,3 +1,13 @@
+2007-04-02  Michael Hutchinson <m.j.hutchinson@gmail.com>
+
+	* jscallglue/Makefile.am: More dist fixes.
+	
+	* Resources/JSCall.js: Fix a couple of JS warnings.
+
+2007-04-02  Boyd Timothy <btimothy@gmail.com>
+
+	* Makefile.am: Fix "make distcheck".
+
 2006-09-07  Chris Howie <cdhowie@nerdshack.com> 
 
 	* Resources/JSCall.js: 	  Restore the old document title after 

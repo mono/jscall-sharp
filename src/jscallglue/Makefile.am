@@ -7,9 +7,9 @@ libjscallglue_la_CXXFLAGS = -fno-rtti
 INCLUDES=$(JSGLUEDEPS_CFLAGS)
 
 libjscallglue_la_SOURCES = \
-	jscallglue.cpp
+	$(srcdir)/jscallglue.cpp
 
 lib_LTLIBRARIES=$(GLUELIB)
 
-EXTRA_DIST = $(ASSEMBLY_CSFILES) $(glue_CPPFILES)
+EXTRA_DIST = $(libjscallglue_la_SOURCES) README
 CLEANFILES = lib*.a lib*.o lib*.lo lib*.la

@@ -44,7 +44,7 @@ function JSCallInit()
 		throw "Error: the document already contains a <jscall> element";
 	}
 	
-	el = document.getElementsByTagName("jscall")[0];
+	var el = document.getElementsByTagName("jscall")[0];
 	el.addEventListener( "DOMNodeInserted", JSCallHandler, false );
 	
 	//JSCallRegisterClrHandler("Redo", Redo);
@@ -88,7 +88,7 @@ function JSCallHandler(e)
 
 
 function JSCallPlaceClrCall(fn, returnTo, args) {
-	str = "JSCall" + delimiter + fn + delimiter + returnTo + delimiter;
+	var str = "JSCall" + delimiter + fn + delimiter + returnTo + delimiter;
 	
 	if (args && args.length > 0)
 	{
