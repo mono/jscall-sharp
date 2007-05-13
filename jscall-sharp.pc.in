@@ -4,7 +4,6 @@ libdir=@libdir@
 includedir=@includedir@
 Libraries=@libdir@/jscall-sharp/jscall.dll
 Script=@libdir@/jscall-sharp/JSCall.js
-MozillaHome=@MOZILLA_HOME@
 
 Name: jscall-sharp
 Description: jscall-sharp - Limited JavaScript bridge for Gecko#
