@@ -1,3 +1,22 @@
+2007-05-13  Michael Hutchinson <m.j.hutchinson@gmail.com>
+
+	* src/AspNetEdit.JSCall/CommandManager.cs,
+	  src/Resources/JSCall.js: Removed the need for 
+	  glue code using "javascript:" urls instead.
+	  Thanks to Chris Howie for this idea.
+	  
+	  API changes:
+	  JSCallInit, JSCallRegisterClrHandler, and 
+	  JSCallUnregisterClrHandler are no longer necessary.
+	  The CommandManager will call any JS function, passing it the 
+	  arguments directly rather than as an array.
+	
+	* src/jscallglue: Removed C++ glue files.
+	
+	* src/Makefile.am,
+	  src/jscall.dll.config.in,
+	  src/jscall.mdp: Updated.
+
 2007-04-02  Michael Hutchinson <m.j.hutchinson@gmail.com>
 
 	* jscallglue/Makefile.am: More dist fixes.

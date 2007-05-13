@@ -1,5 +1,3 @@
-SUBDIRS = jscallglue
-
 ### Names ###
 
 ASSEMBLY_NAME=jscall

@@ -13,18 +13,6 @@
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
-  <DeployTargets />
-  <DeploymentInformation strategy="File">
-    <excludeFiles>
-      <ExcludeFile file="./AssemblyInfo.cs.in" />
-      <ExcludeFile file="./ChangeLog" />
-      <ExcludeFile file="./Resources/ChangeLog" />
-      <ExcludeFile file="./jscallglue/ChangeLog" />
-      <ExcludeFile file="./AspNetEdit.JSCall/ChangeLog" />
-      <ExcludeFile file="./jscall.dll.mdb" />
-      <ExcludeFile file="./libjscallglue.dll.so" />
-    </excludeFiles>
-  </DeploymentInformation>
   <Contents>
     <File name="./AssemblyInfo.cs.in" subtype="Code" buildaction="Exclude" />
     <File name="./AspNetEdit.JSCall/CommandManager.cs" subtype="Code" buildaction="Compile" />
@@ -42,4 +30,16 @@
     <ProjectReference type="Gac" localcopy="True" refto="gecko-sharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=ccf7d78a55e9f021" />
     <ProjectReference type="Gac" localcopy="True" refto="atk-sharp, Version=2.6.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </References>
+  <DeployTargets />
+  <DeploymentInformation strategy="File">
+    <excludeFiles>
+      <ExcludeFile file="./AssemblyInfo.cs.in" />
+      <ExcludeFile file="./ChangeLog" />
+      <ExcludeFile file="./Resources/ChangeLog" />
+      <ExcludeFile file="./jscallglue/ChangeLog" />
+      <ExcludeFile file="./AspNetEdit.JSCall/ChangeLog" />
+      <ExcludeFile file="./jscall.dll.mdb" />
+      <ExcludeFile file="./libjscallglue.dll.so" />
+    </excludeFiles>
+  </DeploymentInformation>
 </Project>

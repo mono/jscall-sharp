@@ -4,7 +4,7 @@
  * Authors: 
  *  Michael Hutchinson <m.j.hutchinson@gmail.com>
  *  
- * Copyright (C) 2005 Michael Hutchinson
+ * Copyright (C) 2005-2007 Michael Hutchinson
  *
  * This sourcecode is licenced under The MIT License:
  * 
@@ -32,21 +32,12 @@ using System;
 using System.Collections;
 using Gecko;
 using System.Text;
-using System.Runtime.InteropServices;
 
 namespace AspNetEdit.JSCall
 {
 	public class CommandManager
 	{
-		[DllImport ("jscallglue.dll")]
-		static extern int PlaceFunctionCall (IntPtr embed,
-			[MarshalAs(UnmanagedType.LPWStr)] string call,
-			[MarshalAs(UnmanagedType.LPWStr)] string returnto,
-			[MarshalAs(UnmanagedType.LPWStr)] string args);
-		
-		[DllImport ("jscallglue.dll")]
-		static extern int ExecuteScript (IntPtr embed,
-			[MarshalAs(UnmanagedType.LPWStr)] string script);
+		private const char delimiter = (char)234;
 		
 		private Hashtable functions = new Hashtable ();
 		private WebControl webControl;
@@ -65,7 +56,7 @@ namespace AspNetEdit.JSCall
 			if (!webControl.Title.StartsWith ("JSCall"))
 				return;
 			
-			string[] call = webControl.Title.Split ((char)234);
+			string[] call = webControl.Title.Split (delimiter);
 			if (call.Length < 2)
 				throw new Exception ("Too few parameters in call from JavaScript.");
 				
@@ -97,105 +88,49 @@ namespace AspNetEdit.JSCall
 			if ((script == null) || (script.Length < 1))
 				throw new ArgumentNullException ("A null or empty script cannot be executed.", "script");
 			
-			int result = ExecuteScript (webControl.Handle, script);
-			string err;
-			
-			switch (result)
-			{
-				case 0:
-					return;
-				
-				case 1:
-					err = "Could not obtain IDOMDocument from GtkMozEmbed. Have you shown the window yet?";
-					break;
-				
-				case 2:
-					err = "Could not create script element.";
-					break;
-				
-				case 3:
-					err = "Could not cast script element to nsIDOMHTMLScriptElement.";
-					break;
-				
-				case 4:
-					err = "Could not locate body element.";
-					break;
-					
-				case 5:
-					err = "Could not append script element to body.";
-					break;
-			}
-			
-			throw new Exception ("Glue function ExecuteScript: " + err);
+			webControl.LoadUrl ("javascript:" + script);
 		}
-
+		
 		public void JSCall (string function, string returnTo, params string[] args)
 		{
 			if ((function==null) || (function.Length < 1))
 				throw new ArgumentException ("A function name must be specified.", "function");
-				
-			if (returnTo == null) returnTo = string.Empty;
 			
-			string argsOut = String.Empty;
+			StringBuilder sb = new StringBuilder ();
+			sb.Append ("javascript: ");
 			
+			//wrap the call in a function to handle the return value
+			if (returnTo != null)
+				sb.AppendFormat ("JSCallPlaceClrCall(\"{0}\", \"\", new Array( ", returnTo);
+			
+			//call the function
+			sb.AppendFormat ("{0} (", function);
+			
+			//add the arguments
 			if (args != null) {
-				argsOut +=  args[0];
-				for (int i = 1; i <= args.Length - 1; i++) {
-					argsOut += (char)234 + args[i];
-				}
+				for (int i = 0; i < args.Length - 1; i++)				
+					sb.AppendFormat ("\"{0}\", ", escapeJSString (args[i]));
+				sb.AppendFormat ("\"{0}\"", escapeJSString (args[args.Length-1]));
 			}
 			
-			int result = PlaceFunctionCall (webControl.Handle, function, returnTo, argsOut);
+			//close the function call			
+			sb.Append (")");
 			
-			string err;
+			//end return wrapper
+			if (returnTo != null)
+				sb.Append (") )");
+			sb.Append(";");
 			
-			switch (result)
-			{
-				case 0:
-					return;
-				
-				case 1:
-					err = "Could not obtain IDOMDocument from GtkMozEmbed. Have you shown the window yet?";
-					break;
-					
-				case 2:
-					err = "Error finding 'jscall' nodes.";
-					break;
-					
-				case 3:
-					err = "Error getting number of 'jscall' nodes.";
-					break;
-					
-				case 4:
-					err = "More or fewer than one 'jscall' node.";
-					break;
-					
-				case 5:
-					err = "Error getting 'jscall' node.";
-					break;
-					
-				case 6:
-					err = "Error adding 'infunction' node.";
-					break;
-					
-				case 7:
-					err = "Error setting attributes on 'infunction' node.";
-					break;
-					
-				case 8:
-					err = "Error getting nsIDOMNode interface on 'infunction' node.";
-					break;
-					
-				case 9:
-					err = "Error appending 'infunction' node to 'jscall' node.";
-					break;
-					
-				default:
-					err = "The glue wrapper returned an unknown error.";
-					break;
-			}
+			System.Diagnostics.Trace.WriteLine(sb.ToString ());
 			
-			throw new Exception ("Glue function PlaceFunctionCall: "+err); 
+			webControl.LoadUrl (sb.ToString ());
+		}
+		
+		private string escapeJSString (string s)
+		{
+			return s.Replace ("\\", "\\\\")
+			        .Replace ("\"", "\\\"")
+			        .Replace ("\n", "\\n");
 		}
 
 		public void RegisterJSHandler (string name, ClrCall handler)
@@ -222,9 +157,7 @@ namespace AspNetEdit.JSCall
 				throw new IndexOutOfRangeException ("A function with this name has not been registered.");
 			}
 		}
-
 	}
-
 
 	public delegate string ClrCall (string[] args);
 }

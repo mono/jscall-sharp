@@ -4,7 +4,7 @@
  * Authors: 
  *  Michael Hutchinson <m.j.hutchinson@gmail.com>
  *  
- * Copyright (C) 2005 Michael Hutchinson
+ * Copyright (C) 2005-2007 Michael Hutchinson
  *
  * This sourcecode is licenced under The MIT License:
  * 
@@ -27,67 +27,11 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
  * USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
- 
-var JSCallFunctions;
-var delimiter = unescape ("%ea");
-
-function JSCallInit()
-{
-	JSCallFunctions = Array();
-	
-	if (document.getElementsByTagName("jscall").length == 0) {
-		el = document.createElement("jscall");
-		document.documentElement.appendChild(el);
-	}
-	
-	if (document.getElementsByTagName("jscall").length != 1) {
-		throw "Error: the document already contains a <jscall> element";
-	}
-	
-	var el = document.getElementsByTagName("jscall")[0];
-	el.addEventListener( "DOMNodeInserted", JSCallHandler, false );
-	
-	//JSCallRegisterClrHandler("Redo", Redo);
-}
-
-
-//function Redo()
-//{
-//	alert("Yay!");
-//}
-
-
-function JSCallHandler(e) 
-{
-	if ( e.target.nodeName == "infunction" && e.target.nodeType == 1 ){	
-		fn = e.target.attributes[0].value;
-		returnTo = e.target.attributes[1].value;
-		args = e.target.attributes[2].value.split(delimiter);
-		
-		try {
-		if(JSCallFunctions[fn]) {
-			f = JSCallFunctions[fn];
-			result = f(args);
-		}
-		else {
-			throw "JSCall: The '"+fn+"' function has not been registered";
-		}
-		
-		
-		if (returnTo.length  != 0) {
-			JSCallPlaceClrCall(returnTo, "", new Array(result));
-		}
-		
-		}
-		catch(e) {
-			alert(e)
-		}
-		e.target.parentNode.removeChild(e.target);
-	}
-}
 
 
 function JSCallPlaceClrCall(fn, returnTo, args) {
+	var delimiter = unescape ("%ea");
+	
 	var str = "JSCall" + delimiter + fn + delimiter + returnTo + delimiter;
 	
 	if (args && args.length > 0)
@@ -98,27 +42,4 @@ function JSCallPlaceClrCall(fn, returnTo, args) {
 	var oldTitle = document.title;
 	document.title = str;
 	document.title = oldTitle;	
-}
-
-
-function JSCallUnregisterClrHandler() {
-	if(JSCallFunctions[n]) {
-		delete JSCallFunctions[n];
-	}
-	else {
-		throw "Function with that name not registered";
-	} 
-}
-
-
-function JSCallRegisterClrHandler(n, fn) {
-	if((typeof fn) != "function") {
-		throw "The fn argument must be a function";
-	}
-	if(JSCallFunctions[n]) {
-		throw "Function with that name already registered";
-	}
-	else {
-		JSCallFunctions[n] = fn;
-	} 
 }

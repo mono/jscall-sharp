@@ -1,3 +1,2 @@
 <configuration>
-  <dllmap dll="jscallglue.dll" target="libjscallglue-@VERSION@.so"/>
 </configuration>
