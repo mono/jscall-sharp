@@ -20,9 +20,6 @@ ASSEMBLY_REFERENCES = \
 JS_FILES = \
 	Resources/JSCall.js
 
-DOC_FILES = \
-	jscallglue/README
-
 
 ### Install locations, files ###
 
@@ -45,7 +42,7 @@ $(SNK): $(top_srcdir)/$(SNK)
 
 ### Extra dist and clean info ###
 
-EXTRA_DIST = $(ASSEMBLY_CSFILES) $(JS_FILES) $(DOC_FILES)
+EXTRA_DIST = $(ASSEMBLY_CSFILES) $(JS_FILES)
 CLEANFILES = $(ASSEMBLY) $(ASSEMBLY).mdb $(GLUELIB) $(SNK)
 
 ### GAC install rules ###
