@@ -12,7 +12,7 @@ You will need:
 Building JSCall
 ===============
 Open a terminal in the root aspnetedit directory and run 
-	./autoconf.sh --prefix=PREFIX
+	./autogen.sh --prefix=PREFIX
 This will automatically run the configure script as well, but you may access 
 additional options by running 
 	./configure --help
